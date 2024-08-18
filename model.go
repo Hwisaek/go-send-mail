@@ -1,4 +1,4 @@
-package send_mail
+package sendmail
 
 type Mail struct {
 	Name  string
