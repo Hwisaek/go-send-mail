@@ -5,9 +5,9 @@ import (
 	"github.com/samber/lo"
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
+	"go-send-mail/model"
 	"net/http"
 	"os"
-	"send-mail/model"
 )
 
 func SendMail(request model.Request) error {

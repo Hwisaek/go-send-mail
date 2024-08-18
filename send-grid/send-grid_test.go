@@ -1,7 +1,7 @@
 package send_grid
 
 import (
-	"send-mail/model"
+	"go-send-mail/model"
 	"testing"
 )
 

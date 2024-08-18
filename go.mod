@@ -1,4 +1,4 @@
-module send-mail
+module go-send-mail
 
 go 1.23
 
