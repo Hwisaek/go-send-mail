@@ -2,10 +2,10 @@ package send_grid
 
 import (
 	"fmt"
+	"github.com/Hwisaek/go-send-mail/model"
 	"github.com/samber/lo"
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
-	"go-send-mail/model"
 	"net/http"
 	"os"
 )

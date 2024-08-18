@@ -1,4 +1,4 @@
-module go-send-mail
+module github.com/Hwisaek/go-send-mail
 
 go 1.23
 
