@@ -1,4 +1,4 @@
-package sendgrid
+package send_mail
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-func SendMail(from model.Mail, toList, ccList, bccList []model.Mail, subject, content string) error {
+func sendgridSendMail(from model.Mail, toList, ccList, bccList []model.Mail, subject, content string) error {
 	m := mail.NewV3Mail()
 
 	m.SetFrom(mail.NewEmail(from.Name, from.Email))
