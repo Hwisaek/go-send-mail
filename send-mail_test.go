@@ -1,16 +1,15 @@
 package send_mail
 
 import (
-	"github.com/Hwisaek/go-send-mail/model"
 	"testing"
 )
 
 func TestSendMail(t *testing.T) {
 	type args struct {
-		from    model.Mail
-		toList  []model.Mail
-		ccList  []model.Mail
-		bccList []model.Mail
+		from    Mail
+		toList  []Mail
+		ccList  []Mail
+		bccList []Mail
 		subject string
 		content string
 	}
@@ -22,11 +21,11 @@ func TestSendMail(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				from: model.Mail{
+				from: Mail{
 					Name:  "test",
 					Email: "test@hwisaek.com",
 				},
-				toList: []model.Mail{
+				toList: []Mail{
 					{
 						Name:  "Hwisaek",
 						Email: "hwisaek@gmail.com",

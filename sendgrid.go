@@ -2,7 +2,6 @@ package send_mail
 
 import (
 	"fmt"
-	"github.com/Hwisaek/go-send-mail/model"
 	"github.com/samber/lo"
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
@@ -10,19 +9,19 @@ import (
 	"os"
 )
 
-func sendgridSendMail(from model.Mail, toList, ccList, bccList []model.Mail, subject, content string) error {
+func sendgridSendMail(from Mail, toList, ccList, bccList []Mail, subject, content string) error {
 	m := mail.NewV3Mail()
 
 	m.SetFrom(mail.NewEmail(from.Name, from.Email))
 
 	personalization := mail.NewPersonalization()
-	personalization.AddTos(lo.Map(toList, func(item model.Mail, index int) *mail.Email {
+	personalization.AddTos(lo.Map(toList, func(item Mail, index int) *mail.Email {
 		return mail.NewEmail(item.Name, item.Email)
 	})...)
-	personalization.AddCCs(lo.Map(ccList, func(item model.Mail, index int) *mail.Email {
+	personalization.AddCCs(lo.Map(ccList, func(item Mail, index int) *mail.Email {
 		return mail.NewEmail(item.Name, item.Email)
 	})...)
-	personalization.AddBCCs(lo.Map(bccList, func(item model.Mail, index int) *mail.Email {
+	personalization.AddBCCs(lo.Map(bccList, func(item Mail, index int) *mail.Email {
 		return mail.NewEmail(item.Name, item.Email)
 	})...)
 	m.AddPersonalizations(personalization)
