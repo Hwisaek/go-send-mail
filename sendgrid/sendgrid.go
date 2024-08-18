@@ -1,4 +1,4 @@
-package send_grid
+package sendgrid
 
 import (
 	"fmt"
@@ -10,26 +10,26 @@ import (
 	"os"
 )
 
-func SendMail(request model.Request) error {
+func SendMail(from model.Mail, toList, ccList, bccList []model.Mail, subject, content string) error {
 	m := mail.NewV3Mail()
 
-	m.SetFrom(mail.NewEmail(request.From.Name, request.From.Email))
+	m.SetFrom(mail.NewEmail(from.Name, from.Email))
 
 	personalization := mail.NewPersonalization()
-	personalization.AddTos(lo.Map(request.ToList, func(item model.Mail, index int) *mail.Email {
+	personalization.AddTos(lo.Map(toList, func(item model.Mail, index int) *mail.Email {
 		return mail.NewEmail(item.Name, item.Email)
 	})...)
-	personalization.AddCCs(lo.Map(request.CcList, func(item model.Mail, index int) *mail.Email {
+	personalization.AddCCs(lo.Map(ccList, func(item model.Mail, index int) *mail.Email {
 		return mail.NewEmail(item.Name, item.Email)
 	})...)
-	personalization.AddBCCs(lo.Map(request.BccList, func(item model.Mail, index int) *mail.Email {
+	personalization.AddBCCs(lo.Map(bccList, func(item model.Mail, index int) *mail.Email {
 		return mail.NewEmail(item.Name, item.Email)
 	})...)
 	m.AddPersonalizations(personalization)
 
-	m.Subject = request.Subject
+	m.Subject = subject
 
-	m.AddContent(mail.NewContent("text/html", request.Content))
+	m.AddContent(mail.NewContent("text/html", content))
 
 	trackingSettings := mail.NewTrackingSettings()
 	clickTrackingSetting := mail.NewClickTrackingSetting()
