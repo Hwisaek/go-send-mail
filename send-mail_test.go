@@ -6,12 +6,13 @@ import (
 
 func TestSendMail(t *testing.T) {
 	type args struct {
-		from    Mail
-		toList  []Mail
-		ccList  []Mail
-		bccList []Mail
-		subject string
-		content string
+		from           Mail
+		toList         []Mail
+		ccList         []Mail
+		bccList        []Mail
+		subject        string
+		content        string
+		attachmentList []Attachment
 	}
 	tests := []struct {
 		name    string
@@ -39,7 +40,7 @@ func TestSendMail(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := SendMail(tt.args.from, tt.args.toList, tt.args.ccList, tt.args.bccList, tt.args.subject, tt.args.content); (err != nil) != tt.wantErr {
+			if err := SendMail(tt.args.from, tt.args.toList, tt.args.ccList, tt.args.bccList, tt.args.subject, tt.args.content, tt.args.attachmentList); (err != nil) != tt.wantErr {
 				t.Errorf("SendMail() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

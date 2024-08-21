@@ -1,6 +1,7 @@
 package sendmail
 
 import (
+	"encoding/base64"
 	"fmt"
 	"github.com/samber/lo"
 	"github.com/sendgrid/sendgrid-go"
@@ -9,7 +10,7 @@ import (
 	"os"
 )
 
-func sendgridSendMail(from Mail, toList, ccList, bccList []Mail, subject, content string) error {
+func sendgridSendMail(from Mail, toList, ccList, bccList []Mail, subject, content string, attachmentList []Attachment) error {
 	m := mail.NewV3Mail()
 
 	m.SetFrom(mail.NewEmail(from.Name, from.Email))
@@ -27,8 +28,19 @@ func sendgridSendMail(from Mail, toList, ccList, bccList []Mail, subject, conten
 	m.AddPersonalizations(personalization)
 
 	m.Subject = subject
-
 	m.AddContent(mail.NewContent("text/html", content))
+
+	for _, attachment := range attachmentList {
+		// 파일을 Base64로 인코딩
+		encoded := base64.StdEncoding.EncodeToString(attachment.Content)
+
+		newAttachment := mail.NewAttachment()
+		newAttachment.SetContent(encoded)
+		newAttachment.SetType(attachment.Type)         // MIME 타입 설정 (예: "application/pdf", "image/png")
+		newAttachment.SetFilename(attachment.Filename) // 첨부 파일 이름 설정
+		newAttachment.SetDisposition("attachment")
+		m.AddAttachment(newAttachment)
+	}
 
 	trackingSettings := mail.NewTrackingSettings()
 	clickTrackingSetting := mail.NewClickTrackingSetting()
